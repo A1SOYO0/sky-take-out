@@ -1,8 +1,11 @@
 package com.sky.service;
 
+import com.sky.dto.DishPageQueryDTO;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
+import com.sky.result.PageResult;
 
 public interface EmployeeService {
 
@@ -13,5 +16,12 @@ public interface EmployeeService {
      */
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
+    //新增员工
     void newEmplyee(EmployeeDTO employeeDTO);
+
+    //员工分页查询
+    PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    //启动禁用员工账号
+    void setStatus(int status, long id);
 }
