@@ -24,4 +24,10 @@ public interface EmployeeService {
 
     //启动禁用员工账号
     void setStatus(int status, long id);
+
+    //查询员工信息
+    Employee getById(long id);
+
+    //更新员工信息
+    void updateEmployee(EmployeeDTO employeeDTO);
 }
