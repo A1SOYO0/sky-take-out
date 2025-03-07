@@ -34,6 +34,7 @@ public class CategoryController {
     }
 
     @GetMapping("/page")
+    @ApiOperation("分类分页查询")
     public Result<PageResult> categoryPageQuery(CategoryPageQueryDTO categoryPageQueryDTO){
         log.info("分类分页查询:{}", categoryPageQueryDTO);
         if (categoryPageQueryDTO.getPage() < 1) categoryPageQueryDTO.setPage(1);
