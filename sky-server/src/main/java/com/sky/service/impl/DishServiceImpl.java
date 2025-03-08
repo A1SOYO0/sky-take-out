@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -74,7 +75,7 @@ public class DishServiceImpl implements DishService {
         //判断是否存在启售中菜品
         for (Long id : ids) {
             Dish dish = dishMapper.getById(id);
-            if(dish.getStatus() == StatusConstant.ENABLE){
+            if(Objects.equals(dish.getStatus(), StatusConstant.ENABLE)){
                 throw new DeletionNotAllowedException(MessageConstant.SETMEAL_ON_SALE);
             }
         }
@@ -89,5 +90,44 @@ public class DishServiceImpl implements DishService {
             dishMapper.deleteById(id);
             dishFlavorMapper.deleteByDishId(id);
         }
+    }
+
+    public DishVO getDishById(Long id){
+        DishVO dishVO = new DishVO();
+        //查菜品表
+        Dish dish = dishMapper.getById(id);
+        BeanUtils.copyProperties(dish, dishVO);
+        //查口味表
+        List<DishFlavor> flavors = dishFlavorMapper.getByDishId(id);
+        dishVO.setFlavors(flavors);
+        return dishVO;
+    }
+
+    @Transactional
+    public void editDish(DishDTO dishDTO){
+        //修改菜品表
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        dishMapper.editDish(dish);
+        //修改口味表
+        dishFlavorMapper.deleteByDishId(dish.getId());
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if (flavors != null && !flavors.isEmpty()) {
+            for (DishFlavor flavor : flavors) {
+                flavor.setDishId(dish.getId());
+            }
+            dishFlavorMapper.insert(flavors);
+        }
+    }
+
+    public void OnOrOff(int status, long id){
+        Dish dish = new Dish();
+        dish.setId(id);
+        dish.setStatus(status);
+        dishMapper.editDish(dish);
+    }
+
+    public List<Dish> getDishByCategoryId(Long categoryId){
+        return dishMapper.getByCategoryId(categoryId);
     }
 }
