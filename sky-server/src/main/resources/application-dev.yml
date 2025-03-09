@@ -11,3 +11,8 @@ sky:
     access-key-id: LTAI5tDan8tTwYbn7CEW4PTo
     access-key-secret: 7HIo7biW7hDOn7qad1kjXtJdSvWXkC
     bucket-name: aiyi-take-out
+  redis:
+    host: localhost
+    port: 6379
+    password: miku3939
+    database: 1
