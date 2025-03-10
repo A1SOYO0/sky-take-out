@@ -16,3 +16,6 @@ sky:
     port: 6379
     password: miku3939
     database: 1
+  wechat:
+    appid: wx5af56911640a9c4e
+    secret: 2a66b405fe9cc30b555fabdcbc3b7e47

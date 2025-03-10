@@ -23,4 +23,12 @@ public interface DishService {
     void OnOrOff(int status, long id);
 
     List<Dish> getDishByCategoryId(Long categoryId);
+
+    /**
+     * 条件查询菜品和口味
+     *
+     *
+     */
+    List<DishVO> listWithFlavor(Long categoryId);
+
 }
