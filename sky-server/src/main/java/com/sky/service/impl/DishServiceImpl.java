@@ -142,6 +142,10 @@ public class DishServiceImpl implements DishService {
         List<DishVO> dishVOList = new ArrayList<>();
 
         for (Dish d : dishList) {
+            //跳过停售的菜品
+            if(Objects.equals(d.getStatus(), StatusConstant.DISABLE)){
+                continue;
+            }
             DishVO dishVO = new DishVO();
             BeanUtils.copyProperties(d,dishVO);
 
