@@ -10,6 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Mapper
 public interface OrderMapper {
 
@@ -39,4 +42,7 @@ public interface OrderMapper {
     Page<OrderVO> conditionSearch(OrdersPageQueryDTO ordersPageQueryDTO);
 
     OrderStatisticsVO statistics();
+
+    @Select("select * from orders where order_time < #{localDateTime} and status = #{status}")
+    List<Orders> getByStatusAndTime(Integer status,LocalDateTime localDateTime);
 }

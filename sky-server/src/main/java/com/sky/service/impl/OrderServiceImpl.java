@@ -267,4 +267,21 @@ public class OrderServiceImpl implements OrderService {
         order.setRejectionReason(ordersRejectionDTO.getRejectionReason());
         orderMapper.update(order);
     }
+
+    //派送订单
+    public void delivery(Long id){
+        Orders order = new Orders();
+        order.setId(id);
+        order.setStatus(Orders.DELIVERY_IN_PROGRESS);
+        orderMapper.update(order);
+    }
+
+    //完成订单
+    public void complete(Long id){
+        Orders order = new Orders();
+        order.setId(id);
+        order.setStatus(Orders.COMPLETED);
+        order.setDeliveryTime(LocalDateTime.now());
+        orderMapper.update(order);
+    }
 }
